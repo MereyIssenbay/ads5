@@ -54,30 +54,34 @@ public class BST<K extends Comparable<K>, V> {
         }
     }
     public void delete(K key) {
-        this.root = deleteNode(root, key);
-        size--;
+        root = deleteNode(root, key);
+        if (root != null) {
+            size--;
+        }
     }
 
     private Node deleteNode(Node node, K key) {
         if (node == null) {
             return null;
         }
-        if (key.compareTo(node.key) == 1) {
+
+        int cmp = key.compareTo(node.key);
+        if (cmp < 0) {
             node.left = deleteNode(node.left, key);
-        } else if (key.compareTo(node.key) == -1) {
+        } else if (cmp > 0) {
             node.right = deleteNode(node.right, key);
         } else {
-            if (node.left == null && node.right == null){
+            if (node.left == null && node.right == null) {
                 return null;
             } else if (node.left == null) {
                 return node.right;
             } else if (node.right == null) {
                 return node.left;
             } else {
-                Node minimum_node = findMinimumNode(node);
-                node.key = minimum_node.key;
-                node.val = minimum_node.val;
-                node.right = deleteNode(node.right, minimum_node.key);
+                Node minimumNode = findMinimumNode(node.right);
+                node.key = minimumNode.key;
+                node.val = minimumNode.val;
+                node.right = deleteNode(node.right, minimumNode.key);
             }
         }
 
@@ -85,11 +89,12 @@ public class BST<K extends Comparable<K>, V> {
     }
 
     private Node findMinimumNode(Node node) {
-        while (node.left != null) {
-            node = node.left;
+        if (node.left == null) {
+            return node;
         }
-        return node;
+        return findMinimumNode(node.left);
     }
+
 
 
     public Iterable<K> iterator(){
