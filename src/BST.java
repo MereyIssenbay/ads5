@@ -14,6 +14,10 @@ public class BST<K extends Comparable<K>, V> {
             this.key = key;
             this.val = val;
         }
+        @Override
+        public String toString() {
+            return "{key: " + this.key + " value: " + this.val + "}";
+        }
     }
     public int getSize() {
         return size;
@@ -99,20 +103,19 @@ public class BST<K extends Comparable<K>, V> {
     }
 
     public Iterable<Node> iterator() {
-        ArrayList<Node> al = inOrderTraversal(new ArrayList<>(), root);
-        return (Iterable) al;
+        ArrayList<Node> nodes = new ArrayList<>();
+        inOrderTraversal(nodes, root);
+        return nodes;
     }
-    private ArrayList<Node> inOrderTraversal(ArrayList list, Node node) {
-        if(node == null) {
-            return null;
+
+    private void inOrderTraversal(ArrayList<Node> list, Node node) {
+        if (node == null) {
+            return;
         }
-        if (node.left != null) {
-            list.add(inOrderTraversal(list, node.left));
-        }
+
+        inOrderTraversal(list, node.left);
         list.add(node);
-        if (node.right != null) {
-            list.add(inOrderTraversal(list, node.right));
-        }
-        return list;
+        inOrderTraversal(list, node.right);
     }
+
 }
