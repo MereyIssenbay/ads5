@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class BST<K extends Comparable<K>, V> {
     private Node root;
     private int size = 0;
@@ -95,9 +98,21 @@ public class BST<K extends Comparable<K>, V> {
         return findMinimumNode(node.left);
     }
 
-
-
-    public Iterable<K> iterator(){
-        return null;
+    public Iterable<Node> iterator() {
+        ArrayList<Node> al = inOrderTraversal(new ArrayList<>(), root);
+        return (Iterable) al;
+    }
+    private ArrayList<Node> inOrderTraversal(ArrayList list, Node node) {
+        if(node == null) {
+            return null;
+        }
+        if (node.left != null) {
+            list.add(inOrderTraversal(list, node.left));
+        }
+        list.add(node);
+        if (node.right != null) {
+            list.add(inOrderTraversal(list, node.right));
+        }
+        return list;
     }
 }
