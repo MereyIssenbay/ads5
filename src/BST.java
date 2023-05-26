@@ -69,7 +69,7 @@ public class BST<K extends Comparable<K>, V> {
     public boolean contains(K key) {
         return containsHelper(root, key);
     }
-
+    // Defence task
     private boolean containsHelper(Node node, K key) {
         if (node == null) {
             return false;
