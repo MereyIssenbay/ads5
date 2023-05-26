@@ -9,5 +9,6 @@ public class Main {
         for(Object el: it) {
             System.out.println(el);
         }
+        System.out.println(bst.contains(11));
     }
 }

@@ -66,6 +66,23 @@ public class BST<K extends Comparable<K>, V> {
             size--;
         }
     }
+    public boolean contains(K key) {
+        return containsHelper(root, key);
+    }
+
+    private boolean containsHelper(Node node, K key) {
+        if (node == null) {
+            return false;
+        }
+        int cmp = key.compareTo(node.key);
+        if (cmp < 0) {
+            return containsHelper(node.left, key);
+        } else if (cmp > 0) {
+            return containsHelper(node.right, key);
+        } else {
+            return true;
+        }
+    }
 
     private Node deleteNode(Node node, K key) {
         if (node == null) {
@@ -93,6 +110,9 @@ public class BST<K extends Comparable<K>, V> {
         }
 
         return node;
+    }
+    public V findLowestRoot(K key, V val1, V val2){ //do at home
+        return null;
     }
 
     private Node findMinimumNode(Node node) {
